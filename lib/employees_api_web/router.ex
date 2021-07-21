@@ -8,11 +8,11 @@ defmodule EmployeesApiWeb.Router do
   scope "/api", EmployeesApiWeb do
     pipe_through :api
 
-    resources "/users", UserController, only: :create
+    resources "/users", UserController, only: [:create]
     post "/users/login", UserController, :login
 
-		resources "/job_titles", JobTitleController, except: [:new, :edit]
+    resources "/job_titles", JobTitleController, except: [:new, :edit]
 
-		resources "/employees", EmployeeController, except: [:new, :edit]
+    resources "/employees", EmployeeController, except: [:new, :edit]
   end
 end

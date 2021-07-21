@@ -4,6 +4,8 @@ defmodule EmployeesApiWeb.UserController do
   alias EmployeesApi.Accounts
   alias EmployeesApi.Accounts.User
 
+  import Bcrypt, only: [check_pass: 2]
+
   action_fallback EmployeesApiWeb.FallbackController
 
   def create(conn, %{"user" => user_params}) do
@@ -15,8 +17,14 @@ defmodule EmployeesApiWeb.UserController do
     end
   end
 
-	def login(conn, %{"user" => %{"username" => username, "password" => password}}) do
-		user = Accounts.get_user!(username)
-		render(conn, "access_token.json", user: user)
-	end
+  def login(conn, %{"user" => %{"username" => username, "password" => password}}) do
+    user = Accounts.get_user!(username)
+    if check_pass(user, password) do
+      render(conn, "access_token.json", user: user)
+    else
+      conn
+      |> put_status(:unauthorized)
+      |> render("unauthorized.json")
+    end
+  end
 end
