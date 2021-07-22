@@ -39,3 +39,5 @@ config :employees_api, EmployeesApiWeb.Endpoint,
 #
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.
+
+config :joken, default_signer: secret_key_base
