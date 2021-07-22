@@ -1,6 +1,8 @@
 defmodule EmployeesApi.EmployeeDirectory.JobTitle do
   use Ecto.Schema
+
   import Ecto.Changeset
+
   alias EmployeesApi.EmployeeDirectory.Employee
 
   schema "job_titles" do

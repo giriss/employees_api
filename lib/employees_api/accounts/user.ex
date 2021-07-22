@@ -5,7 +5,7 @@ defmodule EmployeesApi.Accounts.User do
   import Bcrypt, only: [add_hash: 1]
 
   schema "users" do
-    field :password, :string, virtual: true
+    field :password, :string, virtual: true, redact: true
     field :password_hash, :string, redact: true
     field :username, :string
 
@@ -17,6 +17,7 @@ defmodule EmployeesApi.Accounts.User do
     user
     |> cast(attrs, [:username, :password])
     |> validate_required([:username, :password])
+    |> validate_length(:password, min: 8)
     |> unique_constraint(:username)
     |> put_password_hash
   end

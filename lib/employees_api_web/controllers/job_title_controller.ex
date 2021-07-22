@@ -4,6 +4,8 @@ defmodule EmployeesApiWeb.JobTitleController do
   alias EmployeesApi.EmployeeDirectory
   alias EmployeesApi.EmployeeDirectory.JobTitle
 
+  plug EmployeesApi.Authenticate
+
   action_fallback EmployeesApiWeb.FallbackController
 
   def index(conn, _params) do

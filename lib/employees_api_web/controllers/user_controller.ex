@@ -9,17 +9,10 @@ defmodule EmployeesApiWeb.UserController do
   action_fallback EmployeesApiWeb.FallbackController
 
   def create(conn, %{"user" => user_params}) do
-    password_length = user_params |> Map.fetch!("password") |> String.length()
-    if password_length < 8 do
+    with {:ok, %User{} = user} <- Accounts.create_user(user_params) do
       conn
-      |> put_status(:unprocessable_entity)
-      |> render("invalid_password_length.json")
-    else
-      with {:ok, %User{} = user} <- Accounts.create_user(user_params) do
-        conn
-        |> put_status(:created)
-        |> render("show.json", user: user)
-      end
+      |> put_status(:created)
+      |> render("show.json", user: user)
     end
   end
 
