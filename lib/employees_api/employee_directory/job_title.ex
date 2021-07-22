@@ -1,12 +1,13 @@
 defmodule EmployeesApi.EmployeeDirectory.JobTitle do
   use Ecto.Schema
   import Ecto.Changeset
+  alias EmployeesApi.EmployeeDirectory.Employee
 
   schema "job_titles" do
     field :description, :string
     field :name, :string
 
-    has_many :employees, EmployeesApi.EmployeeDirectory.Employee
+    has_many :employees, Employee
 
     timestamps()
   end

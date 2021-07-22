@@ -1,6 +1,7 @@
 defmodule EmployeesApi.EmployeeDirectory.Employee do
   use Ecto.Schema
   import Ecto.Changeset
+  alias EmployeesApi.EmployeeDirectory.JobTitle
 
   schema "employees" do
     field :dob, :date
@@ -10,7 +11,7 @@ defmodule EmployeesApi.EmployeeDirectory.Employee do
     field :permanent, :boolean, default: false
     field :status, :integer
 
-    belongs_to :job_title, EmployeesApi.EmployeeDirectory.JobTitle
+    belongs_to :job_title, JobTitle
 
     timestamps()
   end
