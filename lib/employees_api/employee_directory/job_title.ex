@@ -6,6 +6,8 @@ defmodule EmployeesApi.EmployeeDirectory.JobTitle do
     field :description, :string
     field :name, :string
 
+    has_many :employees, EmployeesApi.EmployeeDirectory.Employee
+
     timestamps()
   end
 

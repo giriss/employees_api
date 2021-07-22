@@ -9,7 +9,8 @@ defmodule EmployeesApi.EmployeeDirectory.Employee do
     field :last_name, :string
     field :permanent, :boolean, default: false
     field :status, :integer
-    field :job_title_id, :id
+
+    belongs_to :job_title, EmployeesApi.EmployeeDirectory.JobTitle
 
     timestamps()
   end
@@ -17,7 +18,8 @@ defmodule EmployeesApi.EmployeeDirectory.Employee do
   @doc false
   def changeset(employee, attrs) do
     employee
-    |> cast(attrs, [:first_name, :last_name, :email, :dob, :status, :permanent])
-    |> validate_required([:first_name, :last_name, :email, :dob, :status, :permanent])
+    |> cast(attrs, [:first_name, :last_name, :email, :dob, :status, :permanent, :job_title_id])
+    |> validate_required([:first_name, :last_name, :email, :dob, :status, :permanent, :job_title_id])
+    |> foreign_key_constraint(:job_title_id)
   end
 end

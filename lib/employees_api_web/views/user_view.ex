@@ -9,9 +9,7 @@ defmodule EmployeesApiWeb.UserView do
   end
 
   def render("user.json", %{user: user}) do
-    %{id: user.id,
-      username: user.username,
-      password_hash: user.password_hash}
+    %{id: user.id, username: user.username}
   end
 
   def render("access_token.json", %{user: user}) do
@@ -20,4 +18,6 @@ defmodule EmployeesApiWeb.UserView do
   end
 
   def render("unauthorized.json", %{}), do: %{errors: ["invalid username or password"]}
+
+  def render("invalid_password_length.json", %{}), do: %{errors: ["invalid password length"]}
 end
