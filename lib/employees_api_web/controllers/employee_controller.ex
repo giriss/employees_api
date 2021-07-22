@@ -30,7 +30,8 @@ defmodule EmployeesApiWeb.EmployeeController do
   def update(conn, %{"id" => id, "employee" => employee_params}) do
     employee = EmployeeDirectory.get_employee!(id)
 
-    with {:ok, %Employee{} = employee} <- EmployeeDirectory.update_employee(employee, employee_params) do
+    with {:ok, %Employee{} = employee} <-
+           EmployeeDirectory.update_employee(employee, employee_params) do
       render(conn, "show.json", employee: employee)
     end
   end

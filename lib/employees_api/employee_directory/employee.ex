@@ -20,7 +20,15 @@ defmodule EmployeesApi.EmployeeDirectory.Employee do
   def changeset(employee, attrs) do
     employee
     |> cast(attrs, [:first_name, :last_name, :email, :dob, :status, :permanent, :job_title_id])
-    |> validate_required([:first_name, :last_name, :email, :dob, :status, :permanent, :job_title_id])
+    |> validate_required([
+      :first_name,
+      :last_name,
+      :email,
+      :dob,
+      :status,
+      :permanent,
+      :job_title_id
+    ])
     |> foreign_key_constraint(:job_title_id)
   end
 end

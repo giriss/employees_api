@@ -18,8 +18,11 @@ defmodule EmployeesApiWeb.UserController do
 
   def login(conn, %{"user" => %{"username" => username, "password" => password}}) do
     user = Accounts.get_user!(username)
+
     case check_pass(user, password) do
-      {:ok, _} -> render(conn, "access_token.json", user: user)
+      {:ok, _} ->
+        render(conn, "access_token.json", user: user)
+
       {:error, _} ->
         conn
         |> put_status(:unauthorized)

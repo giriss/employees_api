@@ -53,7 +53,10 @@ defmodule EmployeesApiWeb.JobTitleControllerTest do
   describe "update job_title" do
     setup [:create_job_title]
 
-    test "renders job_title when data is valid", %{conn: conn, job_title: %JobTitle{id: id} = job_title} do
+    test "renders job_title when data is valid", %{
+      conn: conn,
+      job_title: %JobTitle{id: id} = job_title
+    } do
       conn = put(conn, Routes.job_title_path(conn, :update, job_title), job_title: @update_attrs)
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 

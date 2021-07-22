@@ -8,6 +8,5 @@ defmodule EmployeesApi.Repo.Migrations.CreateJobTitles do
 
       timestamps()
     end
-
   end
 end

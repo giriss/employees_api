@@ -30,7 +30,8 @@ defmodule EmployeesApiWeb.JobTitleController do
   def update(conn, %{"id" => id, "job_title" => job_title_params}) do
     job_title = EmployeeDirectory.get_job_title!(id)
 
-    with {:ok, %JobTitle{} = job_title} <- EmployeeDirectory.update_job_title(job_title, job_title_params) do
+    with {:ok, %JobTitle{} = job_title} <-
+           EmployeeDirectory.update_job_title(job_title, job_title_params) do
       render(conn, "show.json", job_title: job_title)
     end
   end

@@ -36,8 +36,8 @@ defmodule EmployeesApi.Accounts do
 
   """
   def get_user!(id) when is_integer(id), do: Repo.get!(User, id)
-	
-	def get_user!(username) when is_binary(username), do: Repo.get_by(User, username: username)
+
+  def get_user!(username) when is_binary(username), do: Repo.get_by(User, username: username)
 
   @doc """
   Creates a user.

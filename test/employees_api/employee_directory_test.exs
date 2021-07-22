@@ -41,14 +41,20 @@ defmodule EmployeesApi.EmployeeDirectoryTest do
 
     test "update_job_title/2 with valid data updates the job_title" do
       job_title = job_title_fixture()
-      assert {:ok, %JobTitle{} = job_title} = EmployeeDirectory.update_job_title(job_title, @update_attrs)
+
+      assert {:ok, %JobTitle{} = job_title} =
+               EmployeeDirectory.update_job_title(job_title, @update_attrs)
+
       assert job_title.description == "some updated description"
       assert job_title.name == "some updated name"
     end
 
     test "update_job_title/2 with invalid data returns error changeset" do
       job_title = job_title_fixture()
-      assert {:error, %Ecto.Changeset{}} = EmployeeDirectory.update_job_title(job_title, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               EmployeeDirectory.update_job_title(job_title, @invalid_attrs)
+
       assert job_title == EmployeeDirectory.get_job_title!(job_title.id)
     end
 
@@ -67,9 +73,30 @@ defmodule EmployeesApi.EmployeeDirectoryTest do
   describe "employees" do
     alias EmployeesApi.EmployeeDirectory.Employee
 
-    @valid_attrs %{dob: ~D[2010-04-17], email: "some email", first_name: "some first_name", last_name: "some last_name", permanent: true, status: 42}
-    @update_attrs %{dob: ~D[2011-05-18], email: "some updated email", first_name: "some updated first_name", last_name: "some updated last_name", permanent: false, status: 43}
-    @invalid_attrs %{dob: nil, email: nil, first_name: nil, last_name: nil, permanent: nil, status: nil}
+    @valid_attrs %{
+      dob: ~D[2010-04-17],
+      email: "some email",
+      first_name: "some first_name",
+      last_name: "some last_name",
+      permanent: true,
+      status: 42
+    }
+    @update_attrs %{
+      dob: ~D[2011-05-18],
+      email: "some updated email",
+      first_name: "some updated first_name",
+      last_name: "some updated last_name",
+      permanent: false,
+      status: 43
+    }
+    @invalid_attrs %{
+      dob: nil,
+      email: nil,
+      first_name: nil,
+      last_name: nil,
+      permanent: nil,
+      status: nil
+    }
 
     def employee_fixture(attrs \\ %{}) do
       {:ok, employee} =
@@ -106,7 +133,10 @@ defmodule EmployeesApi.EmployeeDirectoryTest do
 
     test "update_employee/2 with valid data updates the employee" do
       employee = employee_fixture()
-      assert {:ok, %Employee{} = employee} = EmployeeDirectory.update_employee(employee, @update_attrs)
+
+      assert {:ok, %Employee{} = employee} =
+               EmployeeDirectory.update_employee(employee, @update_attrs)
+
       assert employee.dob == ~D[2011-05-18]
       assert employee.email == "some updated email"
       assert employee.first_name == "some updated first_name"
@@ -117,7 +147,10 @@ defmodule EmployeesApi.EmployeeDirectoryTest do
 
     test "update_employee/2 with invalid data returns error changeset" do
       employee = employee_fixture()
-      assert {:error, %Ecto.Changeset{}} = EmployeeDirectory.update_employee(employee, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               EmployeeDirectory.update_employee(employee, @invalid_attrs)
+
       assert employee == EmployeeDirectory.get_employee!(employee.id)
     end
 

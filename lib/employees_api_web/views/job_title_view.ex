@@ -11,8 +11,6 @@ defmodule EmployeesApiWeb.JobTitleView do
   end
 
   def render("job_title.json", %{job_title: job_title}) do
-    %{id: job_title.id,
-      name: job_title.name,
-      description: job_title.description}
+    %{id: job_title.id, name: job_title.name, description: job_title.description}
   end
 end

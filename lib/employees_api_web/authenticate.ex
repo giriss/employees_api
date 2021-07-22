@@ -1,5 +1,4 @@
 defmodule EmployeesApi.Authenticate do
-
   import Plug.Conn, only: [get_req_header: 2]
 
   use Joken.Config
@@ -8,12 +7,12 @@ defmodule EmployeesApi.Authenticate do
   plug :authenticate_request
 
   def authenticate_request(conn, _) do
-    with {:ok, claims} <- conn
-      |> get_req_header("authorization")
-      |> Enum.at(0, "")
-      |> String.replace("Bearer ", "")
-      |> verify_and_validate
-    do
+    with {:ok, claims} <-
+           conn
+           |> get_req_header("authorization")
+           |> Enum.at(0, "")
+           |> String.replace("Bearer ", "")
+           |> verify_and_validate do
       assign(conn, :user_id, claims["user_id"])
     else
       _ ->

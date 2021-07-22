@@ -11,12 +11,14 @@ defmodule EmployeesApiWeb.EmployeeView do
   end
 
   def render("employee.json", %{employee: employee}) do
-    %{id: employee.id,
+    %{
+      id: employee.id,
       first_name: employee.first_name,
       last_name: employee.last_name,
       email: employee.email,
       dob: employee.dob,
       status: employee.status,
-      permanent: employee.permanent}
+      permanent: employee.permanent
+    }
   end
 end

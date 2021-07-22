@@ -20,7 +20,14 @@ defmodule EmployeesApiWeb.EmployeeControllerTest do
     permanent: false,
     status: 43
   }
-  @invalid_attrs %{dob: nil, email: nil, first_name: nil, last_name: nil, permanent: nil, status: nil}
+  @invalid_attrs %{
+    dob: nil,
+    email: nil,
+    first_name: nil,
+    last_name: nil,
+    permanent: nil,
+    status: nil
+  }
 
   def fixture(:employee) do
     {:ok, employee} = EmployeeDirectory.create_employee(@create_attrs)
@@ -65,7 +72,10 @@ defmodule EmployeesApiWeb.EmployeeControllerTest do
   describe "update employee" do
     setup [:create_employee]
 
-    test "renders employee when data is valid", %{conn: conn, employee: %Employee{id: id} = employee} do
+    test "renders employee when data is valid", %{
+      conn: conn,
+      employee: %Employee{id: id} = employee
+    } do
       conn = put(conn, Routes.employee_path(conn, :update, employee), employee: @update_attrs)
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
