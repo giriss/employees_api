@@ -1,5 +1,6 @@
-defmodule EmployeesApi.Authenticate do
+defmodule EmployeesApiWeb.Authenticate do
   import Plug.Conn, only: [get_req_header: 2]
+  alias EmployeesApiWeb.UserView
 
   use Joken.Config
   use Plug.Builder
@@ -16,8 +17,10 @@ defmodule EmployeesApi.Authenticate do
       assign(conn, :user_id, claims["user_id"])
     else
       _ ->
+        response = UserView.render("unauthorized.json", %{}) |> Jason.encode!()
+
         conn
-        |> send_resp(:unauthorized, "")
+        |> send_resp(:unauthorized, response)
         |> halt
     end
   end

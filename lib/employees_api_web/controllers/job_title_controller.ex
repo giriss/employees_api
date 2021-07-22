@@ -4,7 +4,7 @@ defmodule EmployeesApiWeb.JobTitleController do
   alias EmployeesApi.EmployeeDirectory
   alias EmployeesApi.EmployeeDirectory.JobTitle
 
-  plug EmployeesApi.Authenticate
+  plug EmployeesApiWeb.Authenticate
 
   action_fallback EmployeesApiWeb.FallbackController
 

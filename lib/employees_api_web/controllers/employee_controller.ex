@@ -4,7 +4,7 @@ defmodule EmployeesApiWeb.EmployeeController do
   alias EmployeesApi.EmployeeDirectory
   alias EmployeesApi.EmployeeDirectory.Employee
 
-  plug EmployeesApi.Authenticate
+  plug EmployeesApiWeb.Authenticate
 
   action_fallback EmployeesApiWeb.FallbackController
 
