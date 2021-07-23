@@ -26,8 +26,7 @@ defmodule EmployeesApi.EmployeeDirectory.Employee do
       :email,
       :dob,
       :status,
-      :permanent,
-      :job_title_id
+      :permanent
     ])
     |> foreign_key_constraint(:job_title_id)
   end

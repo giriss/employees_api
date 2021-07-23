@@ -20,6 +20,7 @@ defmodule EmployeesApiWeb.Authenticate do
         response = UserView.render("unauthorized.json", %{}) |> Jason.encode!()
 
         conn
+        |> put_resp_header("content-type", "application/json")
         |> send_resp(:unauthorized, response)
         |> halt
     end

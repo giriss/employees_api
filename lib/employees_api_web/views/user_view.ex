@@ -12,14 +12,14 @@ defmodule EmployeesApiWeb.UserView do
     %{data: data}
   end
 
-  def render("user.json", %{user: user}) do
-    %{id: user.id, username: user.username}
-  end
+  def render("user.json", %{user: user}), do: %{id: user.id, username: user.username}
 
   def render("access_token.json", %{user: user}) do
     access_token = generate_and_sign!(default_claims(), %{user_id: user.id})
     %{data: %{access_token: access_token}}
   end
 
-  def render("unauthorized.json", %{}), do: %{errors: ["invalid credentials or access token"]}
+  def render("unauthorized.json", %{}) do
+    %{errors: %{error: ["invalid credentials or access token"]}}
+  end
 end
