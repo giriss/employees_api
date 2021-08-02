@@ -16,8 +16,9 @@ defmodule EmployeesApiWeb.UserView do
   def render("user.json", %{user: user}), do: %{id: user.id, username: user.username}
 
   def render("access_token.json", %{user: user}) do
-    access_token = generate_and_sign!(default_claims(), %{user_id: user.id})
-    %{data: %{access_token: access_token}}
+    exp = DateTime.to_unix(DateTime.utc_now()) + 7_200
+    access_token = generate_and_sign!(default_claims(), %{user_id: user.id, exp: exp})
+    %{data: %{access_token: access_token, expiry: exp}}
   end
 
   def render("unauthorized.json", %{}) do
