@@ -6,7 +6,8 @@ defmodule EmployeesApiWeb.UserView do
 
   def render("show.json", user_map) do
     data =
-      render_one(user_map.user, UserView, "user.json")
+      user_map.user
+      |> render_one(UserView, "user.json")
       |> Map.merge(render("access_token.json", user_map).data)
 
     %{data: data}
