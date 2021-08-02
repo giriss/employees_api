@@ -43,11 +43,7 @@ defmodule EmployeesApiWeb.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
 
-  plug CORSPlug,
-    origin: [
-      "http://localhost:3000",
-      "https://employees-front.vercel.app"
-    ]
+  plug CORSPlug
 
   plug EmployeesApiWeb.Router
 end
