@@ -2,6 +2,7 @@ defmodule EmployeesApiWeb.EmployeeController do
   use EmployeesApiWeb, :controller
 
   alias EmployeesApi.EmployeeDirectory
+  alias EmployeesApi.Cloudinary
   alias EmployeesApi.EmployeeDirectory.Employee
 
   plug EmployeesApiWeb.Authenticate
@@ -25,6 +26,16 @@ defmodule EmployeesApiWeb.EmployeeController do
   def show(conn, %{"id" => id}) do
     employee = EmployeeDirectory.get_employee!(id)
     render(conn, "show.json", employee: employee)
+  end
+
+  def upload_picture(conn, %{"id" => id, "picture" => picture}) do
+    employee = EmployeeDirectory.get_employee!(id)
+    picture_id = Cloudinary.upload(picture) |> Map.fetch!("public_id")
+
+    with {:ok, %Employee{} = employee} <-
+           EmployeeDirectory.update_employee(employee, %{picture_id: picture_id}) do
+      render(conn, "show.json", employee: employee)
+    end
   end
 
   def update(conn, %{"id" => id, "employee" => employee_params}) do
