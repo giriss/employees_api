@@ -18,7 +18,8 @@ defmodule EmployeesApiWeb.EmployeeView do
       email: employee.email,
       dob: employee.dob,
       status: employee.status,
-      permanent: employee.permanent
+      permanent: employee.permanent,
+      picture_id: employee.picture_id
     }
   end
 end

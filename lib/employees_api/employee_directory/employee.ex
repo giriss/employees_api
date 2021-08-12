@@ -10,6 +10,7 @@ defmodule EmployeesApi.EmployeeDirectory.Employee do
     field :last_name, :string
     field :permanent, :boolean, default: false
     field :status, :integer
+    field :picture_id, :string
 
     belongs_to :job_title, JobTitle
 
@@ -19,7 +20,7 @@ defmodule EmployeesApi.EmployeeDirectory.Employee do
   @doc false
   def changeset(employee, attrs) do
     employee
-    |> cast(attrs, [:first_name, :last_name, :email, :dob, :status, :permanent, :job_title_id])
+    |> cast(attrs, [:first_name, :last_name, :email, :dob, :status, :permanent, :picture_id, :job_title_id])
     |> validate_required([
       :first_name,
       :last_name,

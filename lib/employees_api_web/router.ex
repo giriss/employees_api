@@ -10,6 +10,7 @@ defmodule EmployeesApiWeb.Router do
 
     resources "/job_titles", JobTitleController, except: [:new, :edit]
     resources "/employees", EmployeeController, except: [:new, :edit]
+    put "/employees/:id/picture", EmployeeController, :upload_picture
 
     resources "/users", UserController, only: [:create]
     post "/users/login", UserController, :login
