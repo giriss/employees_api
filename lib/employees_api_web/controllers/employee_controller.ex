@@ -41,6 +41,17 @@ defmodule EmployeesApiWeb.EmployeeController do
     end
   end
 
+  def delete_picture(conn, %{"id" => id}) do
+    employee = EmployeeDirectory.get_employee!(id)
+
+    if employee.picture_id !== nil, do: Cloudinary.destroy(employee.picture_id)
+
+    with {:ok, %Employee{} = employee} <-
+           EmployeeDirectory.update_employee(employee, %{picture_id: nil}) do
+      render(conn, "show.json", employee: employee)
+    end
+  end
+
   def update(conn, %{"id" => id, "employee" => employee_params}) do
     employee = EmployeeDirectory.get_employee!(id)
 
