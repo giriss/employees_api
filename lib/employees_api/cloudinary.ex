@@ -10,7 +10,7 @@ defmodule EmployeesApi.Cloudinary do
 
   def destroy(public_id) do
     HTTPoison.post!(
-      "#{@endpoint}/#{System.fetch_env!("CLOUDINARY_CLOUD_NAME")}/image/destroy",
+      "#{endpoint()}/image/destroy",
       %{"public_id" => public_id} |> build_body |> Jason.encode!(),
       "Content-Type": "application/json"
     )
@@ -18,10 +18,14 @@ defmodule EmployeesApi.Cloudinary do
 
   defp send_put(params) do
     HTTPoison.post!(
-      "#{@endpoint}/#{System.fetch_env!("CLOUDINARY_CLOUD_NAME")}/image/upload",
+      "#{endpoint()}/image/upload",
       build_multipart(params),
       "Content-Type": "multipart/form-data"
     )
+  end
+
+  defp endpoint do
+    @endpoint <> "/" <> System.fetch_env!("CLOUDINARY_CLOUD_NAME")
   end
 
   defp build_multipart(%{filename: filename, path: path, content_type: content_type}) do
