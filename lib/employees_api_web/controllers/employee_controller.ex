@@ -30,6 +30,9 @@ defmodule EmployeesApiWeb.EmployeeController do
 
   def upload_picture(conn, %{"id" => id, "picture" => picture}) do
     employee = EmployeeDirectory.get_employee!(id)
+
+    if employee.picture_id !== nil, do: Cloudinary.destroy(employee.picture_id)
+
     picture_id = Cloudinary.upload(picture) |> Map.fetch!("public_id")
 
     with {:ok, %Employee{} = employee} <-
@@ -49,6 +52,8 @@ defmodule EmployeesApiWeb.EmployeeController do
 
   def delete(conn, %{"id" => id}) do
     employee = EmployeeDirectory.get_employee!(id)
+
+    if employee.picture_id !== nil, do: Cloudinary.destroy(employee.picture_id)
 
     with {:ok, %Employee{}} <- EmployeeDirectory.delete_employee(employee) do
       send_resp(conn, :no_content, "")

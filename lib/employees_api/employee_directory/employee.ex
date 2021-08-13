@@ -20,7 +20,16 @@ defmodule EmployeesApi.EmployeeDirectory.Employee do
   @doc false
   def changeset(employee, attrs) do
     employee
-    |> cast(attrs, [:first_name, :last_name, :email, :dob, :status, :permanent, :picture_id, :job_title_id])
+    |> cast(attrs, [
+      :first_name,
+      :last_name,
+      :email,
+      :dob,
+      :status,
+      :permanent,
+      :picture_id,
+      :job_title_id
+    ])
     |> validate_required([
       :first_name,
       :last_name,
