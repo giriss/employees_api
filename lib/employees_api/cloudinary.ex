@@ -17,8 +17,7 @@ defmodule EmployeesApi.Cloudinary do
   end
 
   defp send_put(params) do
-    HTTPoison.request!(
-      :post,
+    HTTPoison.post!(
       "#{@endpoint}/#{System.fetch_env!("CLOUDINARY_CLOUD_NAME")}/image/upload",
       build_multipart(params),
       "Content-Type": "multipart/form-data"
