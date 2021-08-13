@@ -17,33 +17,28 @@ defmodule EmployeesApi.Cloudinary do
   end
 
   defp send_put(params) do
-    headers = ["Content-Type": "multipart/form-data"]
-
     HTTPoison.request!(
       :post,
       "#{@endpoint}/#{System.fetch_env!("CLOUDINARY_CLOUD_NAME")}/image/upload",
       build_multipart(params),
-      headers
+      "Content-Type": "multipart/form-data"
     )
   end
 
   defp build_multipart(%{filename: filename, path: path, content_type: content_type}) do
-    binary_image = File.read!(path)
-    defaults = build_body()
-
     {
       :multipart,
       [
         {
           "file",
-          binary_image,
+          File.read!(path),
           {
             "form-data",
             [name: "file", filename: filename]
           },
           ["Content-Type": content_type]
         }
-      ] ++ Map.to_list(defaults)
+      ] ++ Map.to_list(build_body())
     }
   end
 
