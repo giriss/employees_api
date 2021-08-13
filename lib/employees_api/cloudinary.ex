@@ -54,10 +54,7 @@ defmodule EmployeesApi.Cloudinary do
     queryparams =
       additional_params
       |> Map.merge(%{"timestamp" => timestamp})
-      |> Enum.reduce("", fn keyval, acc ->
-        "#{acc}&#{elem(keyval, 0)}=#{elem(keyval, 1)}"
-      end)
-      |> String.slice(1..-1)
+      |> URI.encode_query()
 
     signature = :crypto.hash(:sha, "#{queryparams}#{secret}") |> Base.encode16()
 
