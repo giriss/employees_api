@@ -33,7 +33,10 @@ defmodule EmployeesApiWeb.EmployeeController do
 
     if employee.picture_id !== nil, do: Cloudinary.destroy(employee.picture_id)
 
-    picture_id = Cloudinary.upload(picture) |> Map.fetch!("public_id")
+    picture_id =
+      picture
+      |> Cloudinary.upload()
+      |> Map.fetch!("public_id")
 
     with {:ok, %Employee{} = employee} <-
            EmployeeDirectory.update_employee(employee, %{picture_id: picture_id}) do
