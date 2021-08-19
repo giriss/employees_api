@@ -114,7 +114,7 @@ defmodule EmployeesApi.EmployeeDirectory do
 
   """
   def list_employees do
-    Repo.all(Employee)
+    Repo.all(from Employee, order_by: [desc: :inserted_at])
   end
 
   @doc """
