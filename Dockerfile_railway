@@ -1,0 +1,36 @@
+FROM elixir:1.14
+
+ARG PORT
+ARG DATABASE_URL
+ARG SECRET_KEY_BASE
+
+RUN mix local.hex --force && \
+    mix local.rebar --force
+
+WORKDIR /app
+
+ENV MIX_ENV="prod"
+ENV PHX_SERVER="true"
+
+COPY mix.exs mix.lock ./
+RUN mix deps.get --only $MIX_ENV
+
+RUN mkdir config
+
+COPY config/config.exs config/${MIX_ENV}.exs config/
+
+RUN mix deps.compile
+
+COPY priv priv
+COPY lib lib
+
+# Compile the release
+RUN mix compile
+
+# Changes to config/runtime.exs don't require recompiling the code
+COPY config/runtime.exs config/
+
+RUN mix release
+
+CMD ["/app/_build/prod/rel/employees_api/bin/employees_api", "eval", "EmployeesApi.Release.migrate()"]
+CMD ["/app/_build/prod/rel/employees_api/bin/employees_api", "start"]
