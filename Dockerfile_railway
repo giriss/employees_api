@@ -3,6 +3,8 @@ FROM elixir:1.14
 ARG PORT
 ARG DATABASE_URL
 ARG SECRET_KEY_BASE
+ARG CLOUDINARY_URL
+ARG PHX_HOST
 
 RUN mix local.hex --force && \
     mix local.rebar --force
@@ -32,5 +34,4 @@ COPY config/runtime.exs config/
 
 RUN mix release
 
-CMD ["/app/_build/prod/rel/employees_api/bin/employees_api", "eval", "EmployeesApi.Release.migrate()"]
-CMD ["/app/_build/prod/rel/employees_api/bin/employees_api", "start"]
+CMD /app/_build/prod/rel/employees_api/bin/employees_api eval EmployeesApi.Release.migrate && /app/_build/prod/rel/employees_api/bin/employees_api start
